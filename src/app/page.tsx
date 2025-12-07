@@ -108,54 +108,87 @@ export default function HomePage() {
           borderColor: 'divider',
         }}
       >
-        <Toolbar sx={{ py: 1, px: { xs: 2, sm: 3 } }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexGrow: 1 }}>
+        <Toolbar sx={{ py: 1, px: { xs: 1.5, sm: 3 }, minHeight: { xs: 56, sm: 64 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 }, flexGrow: 1, minWidth: 0 }}>
             <Box
               sx={{
-                width: 40,
-                height: 40,
+                width: { xs: 36, sm: 40 },
+                height: { xs: 36, sm: 40 },
                 borderRadius: 1.5,
                 bgcolor: 'primary.main',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
               }}
             >
-              <ShowChart sx={{ color: 'white', fontSize: 24 }} />
+              <ShowChart sx={{ color: 'white', fontSize: { xs: 20, sm: 24 } }} />
             </Box>
-            <Box>
-              <Typography variant="h6" sx={{ fontWeight: 600, lineHeight: 1.2 }}>
+            <Box sx={{ minWidth: 0, overflow: 'hidden' }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 600,
+                  lineHeight: 1.2,
+                  fontSize: { xs: '1rem', sm: '1.25rem' },
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
                 Finance Dashboard
               </Typography>
-              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: 'text.secondary',
+                  display: { xs: 'none', md: 'block' },
+                }}
+              >
                 Connect to APIs and build your custom dashboard
               </Typography>
             </Box>
           </Box>
 
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flexShrink: 0 }}>
+          <Box sx={{ display: 'flex', gap: { xs: 0.5, sm: 1 }, alignItems: 'center', flexShrink: 0 }}>
             {widgets.length > 0 && (
               <Chip
-                label={`${widgets.length} active widget${widgets.length > 1 ? 's' : ''}`}
+                label={`${widgets.length}`}
                 size="small"
                 sx={{
                   bgcolor: 'rgba(0, 191, 165, 0.1)',
                   color: 'primary.main',
                   fontWeight: 500,
+                  display: { xs: 'none', sm: 'flex' },
                 }}
                 suppressHydrationWarning
               />
             )}
 
-            <IconButton onClick={() => dispatch(toggleTheme())} size="small" suppressHydrationWarning>
+            <IconButton
+              onClick={() => dispatch(toggleTheme())}
+              size="small"
+              suppressHydrationWarning
+              sx={{ display: { xs: 'none', sm: 'inline-flex' } }}
+            >
               {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
 
-            <IconButton onClick={handleExport} size="small" title="Export">
+            <IconButton
+              onClick={handleExport}
+              size="small"
+              title="Export"
+              sx={{ display: { xs: 'none', md: 'inline-flex' } }}
+            >
               <Download fontSize="small" />
             </IconButton>
 
-            <IconButton onClick={handleImport} size="small" title="Import">
+            <IconButton
+              onClick={handleImport}
+              size="small"
+              title="Import"
+              sx={{ display: { xs: 'none', md: 'inline-flex' } }}
+            >
               <Upload fontSize="small" />
             </IconButton>
 
@@ -163,24 +196,41 @@ export default function HomePage() {
               variant="outlined"
               onClick={() => setShowTemplateModal(true)}
               size="small"
-              sx={{ textTransform: 'none' }}
+              sx={{
+                textTransform: 'none',
+                display: { xs: 'none', sm: 'inline-flex' },
+              }}
             >
               Templates
             </Button>
 
             {widgets.length > 0 && (
-              <IconButton onClick={handleClear} size="small" title="Clear All" color="error">
+              <IconButton
+                onClick={handleClear}
+                size="small"
+                title="Clear All"
+                color="error"
+                sx={{ display: { xs: 'none', sm: 'inline-flex' } }}
+              >
                 <DeleteOutline fontSize="small" />
               </IconButton>
             )}
 
             <Button
               variant="contained"
-              startIcon={<AddIcon />}
+              startIcon={<AddIcon sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />}
               onClick={() => setShowAddModal(true)}
-              sx={{ ml: 1, textTransform: 'none' }}
+              sx={{
+                ml: { xs: 0, sm: 1 },
+                textTransform: 'none',
+                minWidth: { xs: 40, sm: 'auto' },
+                px: { xs: 1, sm: 2 },
+              }}
             >
-              Add Widget
+              <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+                Add Widget
+              </Box>
+              <AddIcon sx={{ display: { xs: 'inline-flex', sm: 'none' } }} />
             </Button>
           </Box>
         </Toolbar>
